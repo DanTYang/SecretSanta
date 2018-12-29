@@ -29,5 +29,4 @@ def user_list():
         }
         user_coll = santa_db['user']
         user_coll.insert_one(usr)
-pygobject==3.26.1
         return "FINSHED INSERTION."
