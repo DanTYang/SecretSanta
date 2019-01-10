@@ -15,7 +15,9 @@ client = MongoClient('localhost', 27017)
 
 santa_db = client['santa-db']
 
-users = []
+@app.route('/')
+def index():
+    return redirect(url_for('index')
 
 @app.route("/users", methods=["POST", "GET"])
 def user_list():
@@ -47,3 +49,7 @@ def blog_User_list(Email):
         user_coll = santa_db['user']
         user_coll.update({"Email": Email},{"$set": request.get_json()})
         return "Done"
+
+if __name__ == '__main__':
+    app.secret_key = 'mysecret'
+    app.run(debug=True)
