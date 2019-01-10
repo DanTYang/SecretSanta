@@ -1,7 +1,8 @@
 import json
 from pymongo import MongoClient
 from bson import ObjectId
-from flask import Flask, request
+import bcrypt
+from flask import Flask, request, render_template, url_for, session, redirect
 app = Flask(__name__)
 
 class JSONEncoder(json.JSONEncoder):
