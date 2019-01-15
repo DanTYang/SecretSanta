@@ -1,0 +1,25 @@
+{% extends "template.html" %}                                                                                    
+{% block content %}
+  <h1>Register</h1>
+  {% if error%}
+    <p class=error><strong>Error:</strong> {{error}}
+  {% endif %}
+  <form action="" method=post>
+    <dl>
+      <dt>Email:
+      <dd><input type=text name=Email>
+      <dt>Name:
+      <dd><input type=text name=Name>
+      <dt>Password:
+      <dd><input type=text name=password>
+      <dt>Gift:
+      <dd><input type=text name=Gift>
+    </dl>
+    <p><input type=submit value=login>
+  </form>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+      {{message}}
+  </div>
+  {% endfor %}
+{% endblock %}

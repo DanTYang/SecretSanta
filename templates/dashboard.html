@@ -1,0 +1,22 @@
+{% extends "template.html" %}
+{% block content %}
+  <h1>Dashboard Motherfuckers</h1>
+  {% if error%}
+    <p><class=error><strong>Error:</strong> {{error}}
+  {% endif %}
+  <form action="" method=post>
+    <dl>
+      <dt>Messages:
+      <dd><output type=text name=Message>
+    </dl>
+    <p><input type=submit value=logout>
+  </form>
+  <form action="" method=delete>
+    <input type=submit value=hacking_yo_mainframe_Bitch>
+  </form>
+  {% for message in get_flashed_messages() %}
+  <div class=flash>
+      {{message}}
+  </div>
+  {% endfor %}
+{% endblock %}
