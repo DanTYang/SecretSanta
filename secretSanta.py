@@ -1,9 +1,10 @@
-import json
+import json 
+from functools import wraps
 from pymongo import MongoClient
 from bson import ObjectId
-import bcrypt
-from flask import Flask, request, render_template, url_for, session, redirect
+from flask import * 
 app = Flask(__name__)
+app.secret_key= 'rutgersIsADeadMeme'
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -13,43 +14,86 @@ class JSONEncoder(json.JSONEncoder):
 
 client = MongoClient('localhost', 27017)
 
-santa_db = client['santa-db']
+santa = client['santa-db']
+user = []
 
-@app.route('/')
-def index():
-    return redirect(url_for('index')
+@app.route("/", methods=["GET"])
+def main_page():
+    return "Hello this is the main page!, Please end DanYang's suffering"
 
-@app.route("/users", methods=["POST", "GET"])
-def user_list():
-    if request.method == 'GET':
-        user_coll = santa_db['user']
-        print(list(user_coll.find()))
-        return JSONEncoder().encode(list(user_coll.find()))
-    else:
-        user = {
-            "Email": request.get_json()['Email'],
-            "Name": request.get_json()['Name'],
-            "Password": request.get_json()['Password'],
-            "Gift": request.get_json()['Gift']
-        }
-        user_coll = santa_db['user']
-        user_coll.insert_one(user)
-        return "FINSHED INSERTION."
+@app.route("/logout/<Email>", methods=["GET"])
+def logout(Email):
+    user = santa['user']
+    user.update({"Email": Email},{"$set":{"Logged_in": False}})
+    flash("You have been logged out!")
+    return redirect(url_for('login'))
 
-@app.route("/users/<Email>", methods=["GET", "DELETE", "PUT"])
-def blog_User_list(Email): 
-    if request.method == 'GET':
-        user_coll = santa_db['user']
-        return JSONEncoder().encode(user_coll.find_one({"Email":Email}))
-    elif request.method == 'DELETE':
-        user_coll = santa_db['user']
-        user_coll.delete_one({"Email": Email})
-        return "Deleted User"
-    else:
-        user_coll = santa_db['user']
-        user_coll.update({"Email": Email},{"$set": request.get_json()})
-        return "Done"
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    error = None
+    if request.method == 'POST':
+        user = santa['user']
+        email = request.form['email']
+        pw = request.form['password']
+        loginUser = user.find_one({'Email' : email, 'Password' : pw})
+        if loginUser is None:
+            error = "Invalid Credentials, Make sure you are registered and then try again."
+        else:
+            loginUser = user.find_one({'Email' : email, 'Password': pw, 'Logged_in' : True})
+            if loginUser:        
+                flash("You are already logged in!")
+                return redirect(url_for('dashboard', Email=email))    
+            else:
+                user.update({"Email": email},{"$set":{"Logged_in": True}})
+                flash("You have been logged in!")
+                return redirect(url_for('dashboard', Email=email))
+    print(error)
+    return render_template('login.html', error=error)
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    if request.method == 'POST':
+        user = santa['user']
+        email = request.form['Email']
+        loginUser = user.find_one({'Email' : email})
+        if loginUser is None:
+            usr = {
+                "Email": email,
+                "Name": request.form['Name'],
+                "Password": request.form['password'],
+                "Gift": request.form['Gift'],
+                "Logged_in": True
+            }
+            user_coll = santa['user']
+            user_coll.insert_one(usr)
+            flash("Added User")
+            return redirect(url_for('login'))
+        flash('Email already in Use!')
+        return redirect(url_for('register'))
+    elif request.method == 'GET':
+        user = santa['user']
+        print(list(user.find()))
+        return render_template('register.html')
+
+
+@app.route("/dashboard/<Email>", methods=["GET", "DELETE", "POST"])
+def dashboard(Email):
+    if request.method == "GET":
+        user = santa['user']
+        loginUser = user.find_one({'Email': Email})
+        if loginUser:
+            loginUser = user.find_one({'Email': Email, 'Logged_in': False})
+            if loginUser:
+                flash("You are not logged in")
+                return redirect(url_for('login'))
+            return render_template('dashboard.html')
+    elif request.method == "DELETE":
+        user = santa['user']
+        user.delete_one({"Email": Email})
+        return 'done'
+    elif request.method == "POST":
+        return redirect(url_for('logout', Email=Email))
+    return redirect(url_for('main_page'))
 
 if __name__ == '__main__':
-    app.secret_key = 'mysecret'
-    app.run(debug=True)
+    app.run(debug=False)
