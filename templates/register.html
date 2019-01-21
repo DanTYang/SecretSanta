@@ -1,25 +1,52 @@
 {% extends "template.html" %}                                                                                    
 {% block content %}
-  <h1>Register</h1>
   {% if error%}
-    <p class=error><strong>Error:</strong> {{error}}
+    <p class=error>
+      {{error}}
+    </p>
   {% endif %}
-  <form action="" method=post>
-    <dl>
-      <dt>Email:
-      <dd><input type=text name=Email>
-      <dt>Name:
-      <dd><input type=text name=Name>
-      <dt>Password:
-      <dd><input type=text name=password>
-      <dt>Gift:
-      <dd><input type=text name=Gift>
-    </dl>
-    <p><input type=submit value=login>
-  </form>
+
   {% for message in get_flashed_messages() %}
-  <div class=flash>
+    <div class=flash>
       {{message}}
-  </div>
+    </div>
   {% endfor %}
+
+  <form action="/register" method="POST">
+    <section class="panel">
+      <div class="inner">
+        <h1>Please Enter Your Email</h1>
+        <input
+          name="Email"
+          class="input-field"
+          type="email"
+          placeholder="Email Address"
+        />
+      </div>
+    </section>
+    <section class="panel">
+      <div class="inner">
+        <h1>Please Enter Your Name</h1>
+        <input name="Name" class="input-field" type="text" placeholder="Name" />
+      </div>
+    </section>
+    <section class="panel">
+      <div class="inner">
+        <h1>SSSSH! Enter a Password</h1>
+        <input name="Password" class="input-field" type="password" placeholder="Password" />
+      </div>
+    </section>
+    <section class="panel">
+      <div class="inner">
+        <h1>What Do You Want?</h1>
+        <p>P.S. Make sure that your gift is under 15 US Dollars.</p>
+        <input name="Gift" class="input-field" type="text" placeholder="Gift" />
+      </div>
+    </section>
+    <section class="panel js-nosubmit">
+      <div class="inner">
+        <h1 class="center">Thanks Yo!</h1>
+      </div>
+    </section>
+  </form>
 {% endblock %}

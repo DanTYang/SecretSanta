@@ -17,6 +17,11 @@ client = MongoClient('localhost', 27017)
 santa = client['santa-db']
 user = []
 
+# Sends static files (JS/CSS) over.
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('static', path)
+
 @app.route("/", methods=["GET"])
 def main_page():
     return "Hello this is the main page!, Please end DanYang's suffering"
@@ -60,7 +65,7 @@ def register():
             usr = {
                 "Email": email,
                 "Name": request.form['Name'],
-                "Password": request.form['password'],
+                "Password": request.form['Password'],
                 "Gift": request.form['Gift'],
                 "Logged_in": True
             }

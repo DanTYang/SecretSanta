@@ -1,0 +1,164 @@
+:root {
+  --main-color: #a13939;
+}
+
+* {
+  font-family: "JeanLuc";
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  margin: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+}
+
+p {
+  font-size: 20px;
+
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.btn {
+  -webkit-appearance: none;
+  border: none;
+  background-color: white;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--main-color);
+  opacity: 0.2;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: 0.2s ease opacity, 0.2s ease transform;
+}
+
+.btn.show {
+  opacity: 1;
+  transform: translateY(0px);
+  pointer-events: auto;
+}
+
+#title,
+#year {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+#title {
+  font-size: 60px;
+  line-height: 1;
+  overflow: hidden;
+}
+
+#year {
+  font-size: 200px;
+}
+
+#main {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: translateY(100%);
+  background-color: var(--main-color);
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--main-color);
+}
+
+.center {
+  text-align: center;
+}
+
+.panel .inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: fit-content;
+  min-width: 500px;
+  margin: auto;
+}
+
+@media (max-width: 532px) {
+  h1 {
+    font-size: 40px;
+  }
+
+  .panel {
+    padding: 0 16px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .panel .inner {
+    position: static;
+    width: 100%;
+    top: 0;
+    left: 0;
+    min-width: 0;
+    transform: none;
+  }
+}
+
+input.input-field {
+  font-variant-caps: small-caps;
+  outline: none;
+  font-size: 32px;
+  width: 100%;
+  margin: 0;
+  padding: 16px 0;
+  appearance: none;
+  color: white;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 4px solid white;
+}
+
+input.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+h1 {
+  font-size: 60px;
+  line-height: 1;
+  color: white;
+  overflow: hidden;
+  opacity: 0;
+  margin: 0;
+}
+
+#preloader {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #588c73;
+}
