@@ -38,8 +38,8 @@ def login():
     error = None
     if request.method == 'POST':
         user = santa['user']
-        email = request.form['email']
-        pw = request.form['password']
+        email = request.form['Email']
+        pw = request.form['Password']
         loginUser = user.find_one({'Email' : email, 'Password' : pw})
         if loginUser is None:
             error = "Invalid Credentials, Make sure you are registered and then try again."
