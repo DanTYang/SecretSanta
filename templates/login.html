@@ -1,21 +1,39 @@
-{% extends "template.html" %}
+{% extends "template.html" %}                                                                                    
 {% block content %}
-  <h1>Login</h1>
   {% if error%}
-    <p><class=error><strong>Error:</strong> {{error}}
+    <p class=error>
+      {{error}}
+    </p>
   {% endif %}
-  <form action="" method=post>
-    <dl>
-      <dt>Email:
-      <dd><input type=text name=email>
-      <dt>Password:
-      <dd><input type=password name=password>
-    </dl>
-    <p><input type=submit value=login>
-  </form>
+
   {% for message in get_flashed_messages() %}
-  <div class=flash>
+    <div class=flash>
       {{message}}
-  </div>
+    </div>
   {% endfor %}
+
+  <form action="/login" method="POST">
+    <section class="panel">
+      <div class="inner">
+        <h1>Enter Your Email Address</h1>
+        <input
+          name="Email"
+          class="input-field"
+          type="email"
+          placeholder="Email Address"
+        />
+      </div>
+    </section>
+    <section class="panel">
+      <div class="inner">
+        <h1>Enter Your Password</h1>
+        <input name="Password" class="input-field" type="password" placeholder="Password" />
+      </div>
+    </section>
+    <section class="panel">
+      <div class="inner">
+        <h1 class="center">Thanks Yo!</h1>
+      </div>
+    </section>
+  </form>
 {% endblock %}
