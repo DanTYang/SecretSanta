@@ -1,8 +1,7 @@
-import json 
 from functools import wraps
 from pymongo import MongoClient
 from bson import ObjectId
-from flask import * 
+from flask import *
 app = Flask(__name__)
 app.secret_key= 'rutgersIsADeadMeme'
 
@@ -12,7 +11,7 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongodb://admin:admin@cluster0-shard-00-00-avps1.mongodb.net:27017,cluster0-shard-00-01-avps1.mongodb.net:27017,cluster0-shard-00-02-avps1.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', 27017)
 
 santa = client['santa-db']
 user = []
@@ -45,9 +44,9 @@ def login():
             error = "Invalid Credentials, Make sure you are registered and then try again."
         else:
             loginUser = user.find_one({'Email' : email, 'Password': pw, 'Logged_in' : True})
-            if loginUser:        
+            if loginUser:
                 flash("You are already logged in!")
-                return redirect(url_for('dashboard', Email=email))    
+                return redirect(url_for('dashboard', Email=email))
             else:
                 user.update({"Email": email},{"$set":{"Logged_in": True}})
                 flash("You have been logged in!")
@@ -74,7 +73,7 @@ def register():
             flash("Added User")
             return redirect(url_for('login'))
         flash('Email already in Use!')
-        return redirect(url_for('register'))
+        return redirect(url_for('login'))
     elif request.method == 'GET':
         user = santa['user']
         print(list(user.find()))
@@ -93,7 +92,7 @@ def get_dashboard():
     #         flash("You are not logged in")
     #         return redirect(url_for('login'))
     return render_template('dashboard.html')
-    
+
     # return redirect(url_for('main_page'))
 
 @app.route("/dashboard", methods=["DELETE", "POST"])
@@ -104,7 +103,6 @@ def dashboard(Email):
         return 'done'
     elif request.method == "POST":
         return redirect(url_for('logout', Email=Email))
-    return redirect(url_for('main_page'))
 
 if __name__ == '__main__':
     app.run(debug=False)
