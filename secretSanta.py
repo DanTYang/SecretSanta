@@ -24,7 +24,7 @@ def send_js(path):
 
 @app.route("/", methods=["GET"])
 def main_page():
-    return "Hello this is the main page!, Please end DanYang's suffering"
+    return render_template("index.html")
 
 @app.route("/logout/<Email>", methods=["GET"])
 def logout(Email):

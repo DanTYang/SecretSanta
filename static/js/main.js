@@ -91,8 +91,8 @@ function createSlider(panels, isLast) {
           y: "0%",
           ease: Power3.easeInOut
         },
-        0.1,
-        "-=1"
+        0.05,
+        "-=1.2"
       );
   }
 

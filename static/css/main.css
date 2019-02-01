@@ -1,9 +1,11 @@
+@import "/static/css/fonts.css";
+
 :root {
   --main-color: #a13939;
 }
 
 * {
-  font-family: "JeanLuc";
+  font-family: "Jean Luc";
 }
 
 body {
@@ -22,7 +24,7 @@ body {
 
 p {
   font-size: 20px;
-
+  font-family: "Syne";
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -46,6 +48,10 @@ p {
   opacity: 1;
   transform: translateY(0px);
   pointer-events: auto;
+}
+.btn.show:hover {
+  opacity: .5;
+  cursor: pointer;
 }
 
 #title,
@@ -125,10 +131,14 @@ p {
   }
 }
 
+input {
+  font-family: Syne;
+}
+
 input.input-field {
-  font-variant-caps: small-caps;
+  /* font-variant-caps: small-caps; */
   outline: none;
-  font-size: 32px;
+  font-size: 20px;
   width: 100%;
   margin: 0;
   padding: 16px 0;
@@ -145,7 +155,7 @@ input.input-field::placeholder {
 }
 
 h1 {
-  font-size: 60px;
+  font-size: 50px;
   line-height: 1;
   color: white;
   overflow: hidden;
@@ -162,7 +172,6 @@ h1 {
   bottom: 0;
   background-color: #588c73;
 }
-
 
 label {
   display: block;

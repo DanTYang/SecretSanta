@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Jean Luc";
+  src: url("/static/fonts/jeanlucweb-bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Syne";
+  src: url("/static/fonts/syne-regular.otf") format("opentype");
+}
