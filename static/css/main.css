@@ -162,3 +162,13 @@ h1 {
   bottom: 0;
   background-color: #588c73;
 }
+
+
+label {
+  display: block;
+  border-bottom: 1px solid white;
+  color: white;
+  padding-bottom: 8px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}

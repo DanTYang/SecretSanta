@@ -1,4 +1,4 @@
-function next(el, slider, onChange) {
+function next(el, slider) {
   const inner = el.querySelector(".inner");
   const input = inner.querySelector("input");
 
@@ -46,7 +46,7 @@ function next(el, slider, onChange) {
   }
 }
 
-function createSlider(panels) {
+function createSlider(panels, isLast) {
   let index = -1;
   const lastIndex = panels.length - 1;
   const listeners = [];
@@ -66,11 +66,9 @@ function createSlider(panels) {
     }
 
     const x = index * -windowWidth;
-
     const timeline = new TimelineMax({ onComplete });
-
     function onComplete() {
-      if (index === lastIndex) {
+      if (index === lastIndex && isLast) {
         const form = document.forms[0];
         form.submit();
       }
@@ -166,23 +164,23 @@ function init(slider) {
 const windowWidth = window.innerWidth;
 const panels = document.querySelectorAll(".panel");
 
-const slider = createSlider(panels);
+const slider = createSlider(panels, settings.hasLast);
 for (let i = 0; i < panels.length; ++i) {
   const panel = panels[i];
-  next(panel, slider);
+  settings.hasLast && next(panel, slider, settings.hasLast);
   TweenMax.set(panel, {
     x: i * windowWidth
   });
 }
 
-// Don't submit on when you press enter.
-window.addEventListener("keydown", e => {
-  const ENTER = 13;
-
-  if (e.keyCode === ENTER) {
-    e.preventDefault();
-    slider.next();
-  }
-});
-
 init(slider);
+if (settings.hasLast) {
+  window.addEventListener("keydown", e => {
+    const ENTER = 13;
+
+    if (e.keyCode === ENTER) {
+      e.preventDefault();
+      slider.next();
+    }
+  });
+}

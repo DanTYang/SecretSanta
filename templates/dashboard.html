@@ -1,22 +1,28 @@
-{% extends "_template_.html" %}
+{% extends "no_script.html" %}
 {% block content %}
-  <h1>Dashboard Motherfuckers</h1>
-  {% if error%}
-    <p><class=error><strong>Error:</strong> {{error}}
-  {% endif %}
-  <form action="" method=post>
-    <dl>
-      <dt>Messages:
-      <dd><output type=text name=Message>
-    </dl>
-    <p><input type=submit value=logout>
-  </form>
-  <form action="" method=delete>
-    <input type=submit value=hacking_yo_mainframe_Bitch>
-  </form>
-  {% for message in get_flashed_messages() %}
-  <div class=flash>
+<section class="panel">
+  <div class="inner">
+    <h1>Dashboard</h1>
+    
+    {% if error%}
+      <p><class=error><strong>Error:</strong> {{error}}
+    {% endif %}
+
+    <form action="/dashboard/" method="POST">
+      <label>Messages</label>
+      <input class="btn show" type=submit value="Logout"/>
+    </form>
+
+    <form action="/dashboard/" method="DELTEE">
+      <label>Delete Your Account</label>
+      <input class="btn show" type="submit" value="Delete" />
+    </form>
+
+    {% for message in get_flashed_messages() %}
+    <div class=flash>
       {{message}}
+    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
+</section>
 {% endblock %}

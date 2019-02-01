@@ -80,19 +80,25 @@ def register():
         print(list(user.find()))
         return render_template('register.html')
 
+@app.route("/dashboard", methods=["GET"])
+def get_dashboard():
+    email = request.args.get('Email')
+    user = santa['user']
 
-@app.route("/dashboard/<Email>", methods=["GET", "DELETE", "POST"])
+    loginUser = user.find_one({'Email': email})
+
+    # if loginUser:
+    #     not_logged_in = user.find_one({'Email': email, 'Logged_in': False})
+    #     if not_logged_in:
+    #         flash("You are not logged in")
+    #         return redirect(url_for('login'))
+    return render_template('dashboard.html')
+    
+    # return redirect(url_for('main_page'))
+
+@app.route("/dashboard", methods=["DELETE", "POST"])
 def dashboard(Email):
-    if request.method == "GET":
-        user = santa['user']
-        loginUser = user.find_one({'Email': Email})
-        if loginUser:
-            loginUser = user.find_one({'Email': Email, 'Logged_in': False})
-            if loginUser:
-                flash("You are not logged in")
-                return redirect(url_for('login'))
-            return render_template('dashboard.html')
-    elif request.method == "DELETE":
+    if request.method == "DELETE":
         user = santa['user']
         user.delete_one({"Email": Email})
         return 'done'
