@@ -84,14 +84,14 @@ function createSlider(panels, isLast) {
         1,
         {
           opacity: 0,
-          y: "100%"
+          y: "100vw"
         },
         {
           opacity: 1,
-          y: "0%",
+          y: "0vw",
           ease: Power3.easeInOut
         },
-        0.05,
+        0.08,
         "-=1.2"
       );
   }
@@ -138,13 +138,12 @@ function init(slider) {
       },
       0.1
     )
-
     .staggerTo(
       ["#preloader", "#main"],
       2,
       {
         cycle: {
-          y: ["-100%", "0%"]
+          y: ["-100vh", "0vh"]
         },
         ease: Power3.easeOut
       },

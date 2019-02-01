@@ -1,16 +1,16 @@
 {% extends "template.html" %}                                                                                    
 {% block content %}
-  {% if error%}
-    <p class=error>
+  <!-- {% if error%}
+    <p class="error">
       {{error}}
     </p>
   {% endif %}
 
   {% for message in get_flashed_messages() %}
-    <div class=flash>
+    <div class="flash">
       {{message}}
     </div>
-  {% endfor %}
+  {% endfor %} -->
 
   <form action="/login" method="POST">
     <section class="panel">

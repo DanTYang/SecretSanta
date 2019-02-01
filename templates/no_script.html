@@ -13,14 +13,16 @@
     />
   </head>
   <body>
-    <div id="preloader">
-      <div id="title">Secret Santa</div>
-    </div>
+    <main>
+      <div id="preloader">
+        <div id="title">Secret Santa</div>
+      </div>
 
-    <div id="main">
-      {% block content %}
-      {% endblock%}
-    </div>
+      <div id="main">
+        {% block content %}
+        {% endblock%}
+      </div>
+    </main>
     <script>
       const settings = {
         hasLast: false
