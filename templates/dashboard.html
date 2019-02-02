@@ -8,12 +8,12 @@
       <p><class=error><strong>Error:</strong> {{error}}
     {% endif %}
 
-    <form action="/dashboard/" method="POST">
+    <form action="/dashboard/<Email>" method="POST">
       <label>Messages</label>
       <input class="btn show" type=submit value="Logout"/>
     </form>
 
-    <form action="/dashboard/" method="DELTEE">
+    <form action="/dashboard/" method="DELETE">
       <label>Delete Your Account</label>
       <input class="btn show" type="submit" value="Delete" />
     </form>
