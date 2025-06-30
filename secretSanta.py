@@ -11,8 +11,7 @@ class JSONEncoder(json.JSONEncoder):
             return str(o)
         return json.JSONEncoder.default(self, o)
 #hrm
-client = MongoClient('mongodb://admin:admin@cluster0-shard-00-00-avps1.mongodb.net:27017,cluster0-shard-00-01-avps1.mongodb.net:27017,cluster0-shard-00-02-avps1.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true', 27017)
-
+client = MongoClient('')
 santa = client['santa-db']
 user = []
 
