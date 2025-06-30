@@ -3,7 +3,7 @@ from pymongo import MongoClient
 from bson import ObjectId
 from flask import *
 app = Flask(__name__)
-app.secret_key= 'rutgersIsADeadMeme'
+app.secret_key= ''
 SESSION_TYPE = 'redis'
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
